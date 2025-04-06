@@ -1,0 +1,7 @@
+React
+npm i react-router-dom
+
+
+
+UI
+npm install @mui/material @mui/styled-engine-sc styled-components 
