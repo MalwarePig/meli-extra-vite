@@ -1,99 +1,109 @@
-import React from "react";
+import React, { useState, useRef, useEffect } from "react"; // Hooks de React
 import {
-  Box,
-  TextField,
+  Form,
+  FormField,
+  FormGroup,
   Button,
-  FormControl,
-  FormLabel,
-  RadioGroup,
-  FormControlLabel,
-  Radio,
-  Typography
-} from "@mui/material";
+} from "semantic-ui-react"; // Componentes de Semantic UI
+
+import "./Register.scss"; // Estilos personalizados
 
 export default function RegisterForm() {
-  const [vehicleType, setVehicleType] = React.useState("");
-  const [otherVehicleType, setOtherVehicleType] = React.useState("");
+  // Estado para guardar el tipo de vehículo seleccionado
+  const [tipoVehiculo, setTipoVehiculo] = useState("");
 
-  const handleVehicleTypeChange = (event) => {
-    setVehicleType(event.target.value);
-  };
+  // Referencia al input donde se especifica el tipo de vehículo si se elige "Otro"
+  const otroInputRef = useRef(null);
+
+  // Efecto que se ejecuta cada vez que cambia el tipo de vehículo
+  useEffect(() => {
+    // Si se selecciona "Otro", se enfoca automáticamente el input adicional
+    if (tipoVehiculo === "Otro" && otroInputRef.current) {
+      otroInputRef.current.focus();
+    }
+  }, [tipoVehiculo]);
 
   return (
-    <Box component="form" sx={{ maxWidth: 500, mx: "auto", p: 2 }}>
-      <Typography variant="h6" gutterBottom>
-        Registro de Conductor
-      </Typography>
+    <Form className="register-form">
+      {/* Campo: ID de Conductor */}
+      <FormField>
+        <label>ID de Conductor </label>
+        <input placeholder="Ej: 291753" />
+      </FormField>
 
-      <TextField
-        label="ID de Conductor"
-        placeholder="Ej: 291753"
-        fullWidth
-        margin="normal"
-        required
-      />
+      {/* Campo: Nombre y apellido */}
+      <FormField>
+        <label>Nombre y apellido </label>
+        <input placeholder="Nombre" />
+      </FormField>
 
-      <TextField
-        label="Nombre y apellido"
-        placeholder="Ej: Juan Pérez"
-        fullWidth
-        margin="normal"
-        required
-      />
+      {/* Campo: Número de teléfono */}
+      <FormField>
+        <label>Numero de teléfono </label>
+        <input placeholder="10 Dígitos" />
+      </FormField>
 
-      <TextField
-        label="Número de teléfono"
-        placeholder="Ej: 5551234567"
-        fullWidth
-        margin="normal"
-        type="tel"
-        required
-      />
+      {/* Campo: Placas del vehículo */}
+      <FormField>
+        <label>Placas</label>
+        <input placeholder="Ej: SJV32Z" />
+      </FormField>
 
-      <TextField
-        label="Horario de carga"
-        placeholder="Ej: 8:00 - 17:00"
-        fullWidth
-        margin="normal"
-      />
+      {/* Campo: Modelo del vehículo */}
+      <FormField>
+        <label>Modelo</label>
+        <input placeholder="Ej: Gol 2020" />
+      </FormField>
 
-      <TextField
-        label="Placas"
-        placeholder="Ej: ABC123"
-        fullWidth
-        margin="normal"
-        required
-      />
+      {/* Grupo de opciones tipo radio para seleccionar tipo de vehículo */}
+      <FormGroup grouped>
+        <label>Tipo de vehículo:</label>
+        <div className="radio-group">
+          {/* Opción: Sedan */}
+          <FormField
+            label="Sedan"
+            control="input"
+            type="radio"
+            name="tipoVehiculo"
+            value="Sedan"
+            checked={tipoVehiculo === "Sedan"}
+            onChange={() => setTipoVehiculo("Sedan")}
+          />
+          {/* Opción: Camioneta */}
+          <FormField
+            label="Camioneta"
+            control="input"
+            type="radio"
+            name="tipoVehiculo"
+            value="Camioneta"
+            checked={tipoVehiculo === "Camioneta"}
+            onChange={() => setTipoVehiculo("Camioneta")}
+          />
+          {/* Opción: Otro */}
+          <FormField
+            label="Otro"
+            control="input"
+            type="radio"
+            name="tipoVehiculo"
+            value="Otro"
+            checked={tipoVehiculo === "Otro"}
+            onChange={() => setTipoVehiculo("Otro")}
+          />
+        </div>
+      </FormGroup>
 
-      <TextField
-        label="Modelo"
-        placeholder="Ej: Toyota Hilux 2022"
-        fullWidth
-        margin="normal"
-      />
+      {/* Input de texto adicional que se activa solo si se selecciona "Otro" */}
+      <FormField className="Otro-auto">
+        <label>Especifica el tipo de vehículo</label>
+        <input
+          placeholder="Ej: Hatchback"
+          disabled={tipoVehiculo !== "Otro"} // Solo se habilita si el valor es "Otro"
+          ref={otroInputRef} // Se asigna la referencia para poder hacer focus
+        />
+      </FormField>
 
-      <FormControl component="fieldset" sx={{ mt: 2, mb: 2 }} fullWidth>
-        <FormLabel component="legend">Tipo de vehículo:</FormLabel>
-        <RadioGroup value={vehicleType} onChange={handleVehicleTypeChange} name="vehicle-type">
-          <FormControlLabel value="sedan" control={<Radio />} label="Sedan" />
-          <FormControlLabel value="camioneta" control={<Radio />} label="Camioneta"/>
-          <FormControlLabel value="otro" control={<Radio />} label="Otro" />
-        </RadioGroup>
-
-        {vehicleType === "otro" && (<TextField label="Especificar tipo" placeholder="¿Qué tipo de vehículo?" fullWidth margin="normal" 
-        value={otherVehicleType} onChange={(e) => setOtherVehicleType(e.target.value)} />)}
-      </FormControl>
-
-      <Button
-        type="submit"
-        variant="contained"
-        color="primary"
-        fullWidth
-        size="large"
-        sx={{ mt: 3 }}
-      >
-        Guardar
-      </Button>
-    </Box>
+      {/* Botón para enviar el formulario */}
+      <Button type="submit">Guardar</Button>
+    </Form>
   );
 }

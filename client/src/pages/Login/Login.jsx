@@ -4,7 +4,7 @@ import RegisterForm from "../../components/Auth/Register/RegisterForm";
 /* import Logo from "../../components/Logo/Logo";
   */
 export default function Auth() {
-  const [showLogin, setShowLogin] = useState(false);
+  const [showLogin, setShowLogin] = useState(true);
 
   return (
     <div className="auth">

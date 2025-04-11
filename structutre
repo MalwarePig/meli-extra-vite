@@ -1,0 +1,14 @@
+src/
+├── config/
+│   ├── firebase.js       # Configuración de Firebase
+│   └── server.js        # Configuración básica del servidor
+├── controllers/
+│   └── authController.js # Controlador de autenticación
+├── middlewares/
+│   ├── authMiddleware.js # Middleware de autenticación JWT
+│   └── corsMiddleware.js # Configuración de CORS
+├── routes/
+│   └── authRoutes.js     # Rutas de autenticación
+├── services/
+│   └── authService.js    # Lógica de negocio para autenticación
+└── app.js                # Punto de entrada principal

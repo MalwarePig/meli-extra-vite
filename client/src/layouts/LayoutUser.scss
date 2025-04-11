@@ -1,0 +1,142 @@
+@import '../scss/colors.scss';
+
+.layout-container {
+  display: flex;
+  min-height: 100vh;
+
+  .sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 200px;
+    height: 100vh;
+    background-color: #ffffff;
+    box-shadow: 8px 0 15px rgba(0, 0, 0, 0.1); /* eje x y Y, bloom */
+    color: black;
+    padding: 20px 0px;
+    box-sizing: border-box;
+    transition: transform 0.3s ease-in-out;
+    z-index: 1000;
+
+    h2 {
+      margin-top: 50px;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+
+      li {
+        margin: 15px 0;
+
+        .ui.button {
+          border-bottom: 1px solid $border-grey;
+          width: 93%;
+          border-radius: 0;
+          background-color: #ffffff;
+          margin: 5px;
+          box-shadow: 4px 4px 5px rgba(0, 0, 0, 0.1);
+
+          &:nth-child(1) {
+            color: $action;
+          }
+          &:nth-child(2) {
+            color: $danger;
+          }
+        }
+
+        a {
+          color: black;
+          text-decoration: none;
+
+          &:hover {
+            text-decoration: underline;
+          }
+        }
+      }
+    }
+  }
+
+  .main-content {
+    margin-left: 200px;
+    flex: 1;
+    display: flex;
+    flex-direction: column; 
+    main {
+      flex: 1;
+      padding: 20px;
+    }
+  }
+
+  // Barra superior (solo en móvil)
+  .topbar {
+    display: none;
+
+    @media (max-width: 768px) {
+      display: flex;
+      align-items: center;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 60px;
+      background-color: #ffffff; 
+      box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+      padding: 0 15px;
+      z-index: 1001;
+
+      .app-title {
+        color: rgb(0, 0, 0);
+        margin-left: 15px;
+        font-size: 18px;
+      }
+
+      .menu-toggle {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        width: 30px;
+        height: 22px;
+        cursor: pointer;
+
+        span {
+          display: block;
+          height: 3px;
+          background: black;
+          border-radius: 3px;
+          transition: 0.4s;
+        }
+
+        &.open {
+          span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+          }
+
+          span:nth-child(2) {
+            opacity: 0;
+          }
+
+          span:nth-child(3) {
+            transform: rotate(-45deg) translate(6px, -6px);
+          }
+        }
+      }
+    }
+  }
+
+  // Responsive Sidebar
+  @media (max-width: 768px) {
+    .sidebar {
+      transform: translateX(-100%);
+      width: 35%;
+    }
+
+    .sidebar.abierto {
+      transform: translateX(0);
+    }
+
+    .main-content {
+      margin-left: 0;
+    }
+  }
+}

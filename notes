@@ -1,7 +1,23 @@
-React
+*************** React ***************
 npm i react-router-dom
 
-
-
-UI
+ 
+*************** UI ***************
 npm install @mui/material @mui/styled-engine-sc styled-components 
+
+*************** Utils ***************
+npm install react-qr-scanner //Para poder leer codigos qr
+npm install jsonwebtoken //crear jsonwebtoken
+npm install jwt-encode
+
+
+*************** SERVER ***************
+express: Framework para crear el servidor.
+
+jsonwebtoken: Generar y verificar JWTs.
+
+cors: Permitir peticiones desde el frontend (React).
+
+body-parser: Leer datos JSON de las peticiones.
+npm i nodemon --dev: para que el servidor se reinicie automaticamente
+npm install firebase 

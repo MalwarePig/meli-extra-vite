@@ -1,0 +1,39 @@
+@import '../../../scss/colors.scss';
+// Modificaciones específicas para el formulario:
+.login-form {
+    width: 100%;
+    max-width: 400px;
+    margin: 20px auto; // Centrado horizontal mejorado
+    padding: 20px;
+    border: 1px solid $border-grey;
+    border-radius: 5px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    
+    // Media query específica para móviles
+    @media (max-width: 480px) {
+      margin: 20px auto; // Fuerza el centrado Vertical y horizontal
+      width: calc(100% - 40px); // Asegura espacio a los lados
+      box-sizing: border-box;
+    }
+  
+    h2 {
+      font-size: 24px !important;
+      text-align: center;
+      margin-bottom: 20px;
+      color: #9e9393;
+    }
+    
+    input {
+      padding: 15px !important;
+      background-color: #f9f9f9 !important;
+      width: 100%; // Asegura que no se salga del contenedor
+      box-sizing: border-box; // Importantante para móvil
+      color: #9e9393;
+      background-color: #1a1a1a;
+      border: 1px solid $border-grey;
+      border-radius: 5px;
+      margin-bottom: 15px;
+    }
+    
+     
+  }
