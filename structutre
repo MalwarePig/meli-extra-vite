@@ -1,9 +1,12 @@
 src/
 ├── config/
 │   ├── firebase.js       # Configuración de Firebase
-│   └── server.js        # Configuración básica del servidor
+│   ├── server.js         # Configuración básica del servidor
+│   ├── token.js          # contiene token y palabra secreta para encriptar
+│   └── config.js         # Funcion como un .env
 ├── controllers/
-│   └── authController.js # Controlador de autenticación
+│   └── authController.js   # Controlador de autenticación
+│   └── DriverController.js # Controlador de conductores
 ├── middlewares/
 │   ├── authMiddleware.js # Middleware de autenticación JWT
 │   └── corsMiddleware.js # Configuración de CORS
