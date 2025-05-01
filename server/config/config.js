@@ -1,7 +1,7 @@
 const env = {};
 /* Servidor */
 env.FRONTEND_URL = 'http://localhost:3000';
-env.PORT_SERVER = 4000;
+env.PORT_SERVER = process.env.PORT || 4000;
 /* Database */
 env.DATABASE_URL = 'https://meli-extra-default-rtdb.firebaseio.com';
 /* GOOGLE KEY */
