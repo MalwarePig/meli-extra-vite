@@ -1,0 +1,18 @@
+
+…or create a new repository on the command line
+
+echo "# meli-extra-vite" >> README.md
+git init
+git add README.md
+git commit -m "Version estable"
+git branch -M main
+git remote add origin https://github.com/MalwarePig/meli-extra-vite.git
+git push -u origin main --force
+
+…or push an existing repository from the command line
+
+git remote add origin https://github.com/MalwarePig/meli-extra-vite.git
+git branch -M main
+git push -u origin main
+
+

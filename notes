@@ -1,0 +1,34 @@
+*************** React ***************
+npm i react-router-dom
+
+ 
+*************** UI ***************
+npm install @mui/material @mui/styled-engine-sc styled-components 
+npm install primereact //Tablas
+*************** Utils ***************
+npm install react-qr-scanner //Para poder leer codigos qr
+npm install jsonwebtoken //crear jsonwebtoken
+npm install jwt-encode
+
+
+
+*************** SERVER ***************
+express: Framework para crear el servidor.
+
+jsonwebtoken: Generar y verificar JWTs.
+
+cors: Permitir peticiones desde el frontend (React).
+
+body-parser: Leer datos JSON de las peticiones.
+npm i nodemon --dev: para que el servidor se reinicie automaticamente
+npm install firebase 
+npm i firebase-admin
+
+
+*************** FIREBASE ***************
+*Crear proyecto
+*Generar permisos (dev en un inicio)
+*Generar Credenciales o clave privada
+    -Configuración de proyecto
+        -Cuentas de servicio
+            -SDK de Firebase Admin

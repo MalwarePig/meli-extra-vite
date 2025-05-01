@@ -1,0 +1,75 @@
+🔥 Consultas en Firebase Realtime Database (RTDB)
+
+Tu código actual usa RTDB (admin.database()). Las consultas se hacen con:
+
+    ref(): Para referenciar una ubicación.
+
+    orderByChild(), orderByValue(), orderByKey(): Para ordenar.
+
+    equalTo(), startAt(), endAt(), limitToFirst(), limitToLast(): Para filtrar.
+
+    once('value'): Para leer datos una vez (o on() para escuchar cambios en tiempo real).
+
+📌 Ejemplo 1: Obtener todos los datos de un nodo
+javascript
+Copy
+
+const db = admin.database();
+const ref = db.ref('users');
+
+ref.once('value', (snapshot) => {
+  const data = snapshot.val(); // Datos completos
+  console.log(data);
+});
+
+📌 Ejemplo 2: Filtrar por un valor (ej: usuarios con edad = 25)
+javascript
+Copy
+
+const ref = db.ref('users');
+ref.orderByChild('age').equalTo(25).once('value', (snapshot) => {
+  snapshot.forEach((childSnapshot) => {
+    console.log(childSnapshot.key, childSnapshot.val()); // key = ID del nodo
+  });
+});
+
+📌 Ejemplo 3: Ordenar y limitar resultados
+javascript
+Copy
+
+// Obtener los primeros 5 usuarios ordenados por nombre
+ref.orderByChild('name').limitToFirst(5).once('value', (snapshot) => {
+  console.log(snapshot.val());
+});
+
+📌 Ejemplo 4: Escuchar cambios en tiempo real
+javascript
+Copy
+
+ref.on('child_added', (snapshot) => {
+  console.log('Nuevo usuario:', snapshot.val());
+});
+
+🔥 Consultas en Firestore (si decides migrar)
+
+Si usaras Firestore (admin.firestore()), las consultas son diferentes:
+javascript
+Copy
+
+const db = admin.firestore();
+const usersRef = db.collection('users');
+
+// Obtener usuarios con edad = 25
+usersRef.where('age', '==', 25).get()
+  .then((querySnapshot) => {
+    querySnapshot.forEach((doc) => {
+      console.log(doc.id, doc.data());
+    });
+  });
+
+📌 Diferencias clave entre RTDB y Firestore
+Característica	Realtime Database (RTDB)	Firestore
+Estructura	JSON anidado	Colecciones/Documentos
+Consultas	Limitadas (sin OR, solo filtros simples)	Más potentes (OR, múltiples condiciones)
+Escalabilidad	Bueno para datos simples	Mejor para datos complejos
+Precio	Costo por descarga de datos	Costo por operaciones

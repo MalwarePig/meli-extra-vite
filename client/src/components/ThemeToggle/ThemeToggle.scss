@@ -1,0 +1,32 @@
+// ThemeToggle.scss - Versión corregida
+@import '../../index.scss'; // Importa las variables
+
+.theme-toggle-container {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 1000;
+  
+  @media (max-width: 768px) {
+    bottom: 10px;
+    right: 10px;
+  }
+}
+
+.theme-toggle {
+  background: var(--secondary-bg);
+  color: var(--text-color);
+  border: 1px solid var(--border-color);
+  border-radius: 20px;
+  padding: 8px 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  
+  &:hover {
+    filter: brightness(90%);
+    transform: scale(1.05);
+  }
+}

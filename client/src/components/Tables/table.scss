@@ -1,0 +1,68 @@
+@import '../../scss/colors.scss';
+.table-container {
+  /*   margin: 20px; */
+    font-family: Arial, sans-serif;
+    border: 1px solid $border-grey;
+    box-shadow: 4px 4px 5px var(--bg-shadow) !important;
+  }
+  
+  .table-controls {
+    margin: 15px;
+    padding: 5px;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+    align-items: center;
+  }
+  
+  .filter-input {
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    width: 300px;
+  }
+  
+  .data-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .data-table th, .data-table td {
+    border: 1px solid #ddd;
+    padding: 12px;
+    text-align: left;
+  }
+  
+  .data-table th {
+    background-color: var(--bg-color);
+    cursor: pointer;
+    position: relative;
+  }
+  
+  .data-table th.sortable:hover {
+    background-color: var(--bg-color);
+  }
+  
+  .sort-icon {
+    margin-left: 5px;
+  }
+  
+  .pagination-controls {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .pagination-controls button {
+    padding: 5px 10px;
+    cursor: pointer;
+    background-color: var(--bg-color) ;
+/*     border-bottom: 1px solid $border-grey; */
+    box-shadow: 4px 4px 5px var(--bg-shadow) !important;
+  }
+  
+  .no-data {
+    text-align: center;
+    padding: 20px;
+    color: #ec0000;
+  }

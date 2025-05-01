@@ -1,0 +1,73 @@
+@import "../../../scss/colors.scss";
+// Modificaciones específicas para el formulario:
+.perfil-form {
+  background-color: var(--secondary-bg) !important; // Usa las variables definidas
+  width: 100%;
+  max-width: 400px;
+  margin: 20px auto; // Centrado horizontal mejorado
+  padding: 20px;
+  border: 1px solid $border-grey;
+  border-radius: 5px;
+  box-shadow: 4px 6px 8px var(--bg-shadow) !important;
+
+  // Media query específica para móviles
+  @media (max-width: 480px) {
+    margin: 20px auto; // Fuerza el centrado Vertical y horizontal
+    width: calc(100% - 40px); // Asegura espacio a los lados
+    box-sizing: border-box;
+  }
+
+  .Status{
+    color: rgb(255, 123, 0);
+  }
+
+  input {
+    padding: 15px !important; 
+    background-color: var(--primary-bg) !important; 
+    border: 1px solid $border-grey;
+    width: 100%; // Asegura que no se salga del contenedor
+    box-sizing: border-box; // Importantante para móvil
+    border-radius: 5px;
+    margin-bottom: 15px;
+  }
+
+  
+  .radio-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 10px;
+
+    .field {
+      display: flex;
+      align-items: center;
+      
+      input[type="radio"] {
+        margin: 0 8px 0 0 !important; /* Espacio entre radio y label */
+        width: auto; /* Ancho automático */
+      }
+      
+      label {
+        order: 2; /* Mueve el label después del input */
+        margin: 0 !important;
+      }
+    }
+  }
+
+  .Otro-auto{
+    margin-top: 10px; 
+  }
+
+  .button {
+    background-color: var(--primary-bg);
+    color: var(--text-color);
+    border: 1px solid var(--border-color);
+    transition: all 0.3s ease;
+    box-shadow: 4px 4px 5px var(--bg-shadow) !important;
+
+    &:hover {
+      filter: brightness(90%);
+      background-color: var(--secondary-bg);
+    } 
+  }
+}
