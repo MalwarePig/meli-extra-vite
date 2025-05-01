@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import { Form, FormField, FormGroup, Button } from "semantic-ui-react";
+import { backend_url } from "../../../config/env";
 import "./Register.scss";
 
 export default function RegisterForm({ onRegiserSuccess }) {
@@ -39,7 +40,7 @@ export default function RegisterForm({ onRegiserSuccess }) {
     e.preventDefault();
     try {
       // Envía los datos al backend (POST a /register)
-      const response = await fetch("http://localhost:4000/register", {
+      const response = await fetch(backend_url+'/register', {
         method: "POST",
         headers: {
           "Content-Type": "application/json", // Indica que enviamos JSON

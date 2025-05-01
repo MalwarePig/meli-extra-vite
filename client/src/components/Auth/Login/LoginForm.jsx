@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Form, FormField, Button } from "semantic-ui-react";
+import { backend_url } from "../../../config/env";
 import "./Login.scss";
 
 export default function LoginForm({ onLoginSuccess }) {
@@ -8,7 +9,7 @@ export default function LoginForm({ onLoginSuccess }) {
     idDriver: "",
     password: "",
   });
-
+  
   const handleInputChange = (e) => {
     const { name, value } = e.target; // Extrae 'name' y 'value' del input
     setFormData({
@@ -48,7 +49,7 @@ export default function LoginForm({ onLoginSuccess }) {
 
   async function Validar() {
     // Envía los datos al backend (POST a /login)
-    const response = await fetch("http://localhost:4000/login", {
+    const response = await fetch(backend_url+'/login', {
       method: "POST",
       headers: {
         "Content-Type": "application/json", // Indica que enviamos JSON
