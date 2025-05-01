@@ -1,1 +1,1 @@
-export const backend_url = 'https://frontend-meli-qfrr.onrender.com/'
+export const backend_url = 'https://frontend-meli-qfrr.onrender.com'
