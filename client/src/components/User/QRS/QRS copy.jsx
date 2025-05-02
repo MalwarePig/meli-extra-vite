@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef } from 'react';
 import { Form, FormField, Button, Icon } from 'semantic-ui-react';
 import QrScanner from 'react-qr-scanner';
 import setETA from './Functions'
@@ -8,7 +8,6 @@ export default function QRS() {
   const [scanResult, setScanResult] = useState('');
   const [showScanner, setShowScanner] = useState(false);
   const [schedule, setSchedule] = useState('');
-  const [facingMode, setFacingMode] = useState('environment'); // 'environment' para cámara trasera
   const scannerRef = useRef(null);
 
   const handleScan = (data) => {
@@ -51,7 +50,6 @@ export default function QRS() {
               delay={300}
               onError={handleError}
               onScan={handleScan}
-              facingMode={facingMode} // Usar cámara trasera
               style={{
                 width: '100%',
                 maxHeight: '300px',
@@ -88,6 +86,8 @@ export default function QRS() {
 
         <Button type='' onClick={() => setETA(schedule)}>Set ETA</Button>
       </Form>
+
+      
     </div>
   );
 }
