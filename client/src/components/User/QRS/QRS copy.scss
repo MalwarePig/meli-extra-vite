@@ -1,0 +1,69 @@
+@import '../../../scss/colors.scss';
+// Modificaciones específicas para el formulario:
+.QR-form {
+  width: 100%;
+  max-width: 400px;
+  margin: 20% auto; // Centrado horizontal mejorado
+  padding: 20px;
+  border: 1px solid $border-grey;
+  border-radius: 5px;
+  box-shadow: 4px 6px 8px var(--bg-shadow) !important;
+
+  // Media query específica para móviles
+  @media (max-width: 480px) {
+    margin: 100px auto; // Fuerza el centrado Vertical y horizontal
+    width: calc(100% - 40px); // Asegura espacio a los lados
+    box-sizing: border-box;
+  }
+
+  h2 {
+    font-size: 24px !important;
+    text-align: center;
+    margin-bottom: 20px;
+    color: #9e9393;
+  }
+
+  input {
+    padding: 15px !important; 
+    width: 100%; // Asegura que no se salga del contenedor
+    box-sizing: border-box; // Importante para móvil
+    background-color: var(--primary-bg) !important; 
+    border: 1px solid $border-grey;
+    border-radius: 5px;
+    margin-bottom: 15px;
+  }
+
+  // Estilos personalizados para el botón
+  .qr-button {
+    width: 100%;
+    font-size: 18px; // Aumenta el tamaño de fuente
+    padding: 15px; // Espaciado interno más grande
+    border-radius: 8px; // Bordes redondeados más pronunciados
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+
+    .icon {
+      margin-right: 10px; // Espacio entre el icono y el texto
+    }
+
+    &:hover {
+      background-color: #2185d0; // Cambio de color al pasar el cursor
+      box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); // Sombra al pasar el cursor
+    }
+  }
+
+  .button {
+    background-color: var(--primary-bg);
+    color: var(--text-color);
+    border: 1px solid var(--border-color);
+    transition: all 0.3s ease;
+    box-shadow: 4px 4px 5px var(--bg-shadow) !important;
+
+    &:hover {
+      filter: brightness(90%);
+      background-color: var(--secondary-bg);
+    } 
+  }
+}
