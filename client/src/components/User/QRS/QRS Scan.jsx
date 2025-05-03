@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import { Form, FormField, Button, Icon } from "semantic-ui-react";
-import QrScanner from "react-qr-scanner";
+import { QrScanner } from '@yudiel/react-qr-scanner/dist/esm';
 import setETA from "./Functions";
 import "./QRS.scss";
 
