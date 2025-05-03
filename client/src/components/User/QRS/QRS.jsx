@@ -33,11 +33,12 @@ export default function QRS() {
         setDevices(videoDevices);
         
         // Intentamos seleccionar la cámara trasera por defecto
-        const rearCamera = videoDevices.find(device => 
-          device.label.toLowerCase().includes('back') || 
-          device.label.toLowerCase().includes('rear') ||
-          device.label.toLowerCase().includes('environment')
-        );
+        const rearCamera = videoDevices.find(device => {
+          const label = device.label?.toLowerCase() || '';
+          return label.includes('back') || 
+                 label.includes('rear') ||
+                 label.includes('environment');
+        });
         
         // Si no encontramos trasera, usamos la primera disponible
         setSelectedDeviceId(rearCamera?.deviceId || videoDevices[0]?.deviceId || "");
@@ -87,8 +88,8 @@ export default function QRS() {
     setSelectedDeviceId(nextDevice.deviceId);
     
     // Feedback para el usuario sobre qué cámara está activa
-    const cameraType = nextDevice.label.toLowerCase().includes('front') ? 
-      "delantera" : "trasera";
+    const label = nextDevice.label?.toLowerCase() || '';
+    const cameraType = label.includes('front') ? "delantera" : "trasera";
     setError(`Cámara ${cameraType} activada`);
     setTimeout(() => setError(null), 2000);
   };
@@ -117,12 +118,12 @@ export default function QRS() {
 
         {showScanner && !isLoading && (
           <div className="scanner-panel">
-            <Suspense fallback={<div>Cargando escáner...</div>}>
-              {devices.length > 0 ? (
+            <Suspense fallback={<div className="scanner-loading">Cargando escáner...</div>}>
+              {devices.length > 0 && selectedDeviceId ? (
                 <>
                   <div className="scanner-frame">
                     <QrScanner
-                      key={selectedDeviceId} // Forzar re-render al cambiar cámara
+                      key={selectedDeviceId}
                       onDecode={handleScan}
                       onError={handleError}
                       constraints={{
@@ -154,8 +155,8 @@ export default function QRS() {
                     >
                       <Icon name="sync" />
                       Cambiar a cámara {devices.length > 1 ? 
-                        (devices.find(d => d.deviceId !== selectedDeviceId)?.label.toLowerCase().includes('front') ? 
-                        "delantera" : "trasera") : ''}
+                        ((devices.find(d => d.deviceId !== selectedDeviceId)?.label?.toLowerCase()?.includes('front') ? 
+                        "delantera" : "trasera") ): ''}
                     </Button>
                   )}
                 </>
