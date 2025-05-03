@@ -10,67 +10,67 @@ export default function QRS() {
   const [schedule, setSchedule] = useState("");
   const [availableCameras, setAvailableCameras] = useState([]);
   const [activeCameraId, setActiveCameraId] = useState("");
+  const [isScannerRunning, setIsScannerRunning] = useState(false);
   const scannerRef = useRef(null);
 
   const config = {
     fps: 10,
     qrbox: { width: 250, height: 250 },
     rememberLastUsedCamera: true,
-    supportedScanTypes: [1] // Solo escaneo por cámara
+    aspectRatio: 1.0,
   };
 
   useEffect(() => {
-    let html5QrCode;
+    if (!showScanner) return;
 
     const initializeScanner = async () => {
       try {
         const cameras = await Html5Qrcode.getCameras();
-        if (cameras.length > 0) {
-          setAvailableCameras(cameras);
+        if (cameras.length === 0) throw new Error("No se encontraron cámaras.");
 
-          const rearCamera = cameras.find(cam =>
-            cam.label?.toLowerCase().includes("back") ||
-            cam.label?.toLowerCase().includes("rear") ||
-            cam.label?.toLowerCase().includes("environment")
-          );
+        setAvailableCameras(cameras);
 
-          const selectedCameraId = rearCamera?.id || cameras[0].id;
-          setActiveCameraId(selectedCameraId);
+        const rearCamera = cameras.find(cam =>
+          cam.label.toLowerCase().includes("back") ||
+          cam.label.toLowerCase().includes("rear") ||
+          cam.label.toLowerCase().includes("environment")
+        );
 
-          html5QrCode = new Html5Qrcode("qr-scanner-container");
-          scannerRef.current = html5QrCode;
+        const selectedCameraId = rearCamera?.id || cameras[0].id;
+        setActiveCameraId(selectedCameraId);
 
-          await html5QrCode.start(
-            selectedCameraId,
-            config,
-            (decodedText) => {
-              setScanResult(decodedText);
-              setShowScanner(false);
-              html5QrCode.stop().then(() => html5QrCode.clear());
-            },
-            (errorMessage) => {
-              console.warn("Escaneo fallido:", errorMessage);
-            }
-          );
-        }
+        scannerRef.current = new Html5Qrcode("qr-scanner-container");
+
+        await scannerRef.current.start(
+          selectedCameraId,
+          config,
+          (decodedText) => {
+            setScanResult(decodedText);
+            setShowScanner(false);
+            setIsScannerRunning(false);
+            scannerRef.current.stop().then(() => scannerRef.current.clear());
+          },
+          (errorMessage) => {
+            console.warn("Escaneo fallido:", errorMessage);
+          }
+        );
+
+        setIsScannerRunning(true);
       } catch (err) {
-        console.error("Error inicializando cámara:", err);
+        console.error("Error al inicializar escáner:", err);
       }
     };
 
-    if (showScanner) {
-      initializeScanner();
-    }
+    initializeScanner();
 
     return () => {
-      const currentScanner = scannerRef.current;
-      if (currentScanner) {
-        currentScanner
-          .stop()
-          .then(() => currentScanner.clear())
-          .catch((err) => {
-            console.warn("El escáner no estaba activo, nada que detener:", err.message);
-          });
+      if (scannerRef.current && isScannerRunning) {
+        scannerRef.current.stop().then(() => {
+          scannerRef.current.clear();
+          setIsScannerRunning(false);
+        }).catch(err => {
+          console.warn("El escáner no estaba activo al limpiar:", err.message);
+        });
       }
     };
   }, [showScanner]);
@@ -83,8 +83,13 @@ export default function QRS() {
     const nextCamera = availableCameras[nextIndex];
 
     try {
-      await scannerRef.current.stop().catch(() => {});
-      await scannerRef.current.clear();
+      if (isScannerRunning) {
+        await scannerRef.current.stop();
+        await scannerRef.current.clear();
+        setIsScannerRunning(false);
+      }
+
+      setActiveCameraId(nextCamera.id);
 
       await scannerRef.current.start(
         nextCamera.id,
@@ -92,6 +97,7 @@ export default function QRS() {
         (decodedText) => {
           setScanResult(decodedText);
           setShowScanner(false);
+          setIsScannerRunning(false);
           scannerRef.current.stop().then(() => scannerRef.current.clear());
         },
         (errorMessage) => {
@@ -99,17 +105,15 @@ export default function QRS() {
         }
       );
 
-      setActiveCameraId(nextCamera.id);
+      setIsScannerRunning(true);
     } catch (err) {
-      console.error("Error al cambiar de cámara:", err);
+      console.error("Error al cambiar cámara:", err);
     }
   };
 
   const toggleScanner = () => {
     setShowScanner(!showScanner);
-    if (!showScanner) {
-      setScanResult("");
-    }
+    if (!showScanner) setScanResult("");
   };
 
   return (
