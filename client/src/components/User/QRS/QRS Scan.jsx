@@ -1,6 +1,6 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Form, FormField, Button, Icon } from "semantic-ui-react";
-import { QrScanner } from '@yudiel/react-qr-scanner/dist/esm';
+import { Html5QrcodeScanner } from "html5-qrcode";
 import setETA from "./Functions";
 import "./QRS.scss";
 
@@ -8,30 +8,103 @@ export default function QRS() {
   const [scanResult, setScanResult] = useState("");
   const [showScanner, setShowScanner] = useState(false);
   const [schedule, setSchedule] = useState("");
-  const [facingMode, setFacingMode] = useState("environment"); // 'environment' para cámara trasera
+  const [availableCameras, setAvailableCameras] = useState([]);
+  const [activeCameraId, setActiveCameraId] = useState("");
   const scannerRef = useRef(null);
 
-  const switchCamera = () => {
-    setFacingMode((prevMode) =>
-      prevMode === "environment" ? "user" : "environment"
-    );
+  // Configuración del scanner
+  const config = {
+    fps: 10,
+    qrbox: { width: 250, height: 250 },
+    rememberLastUsedCamera: true,
+    supportedScanTypes: [1] // Solo escaneo por cámara
   };
 
-  const handleScan = (data) => {
-    if (data) {
-      setScanResult(data.text);
-      setShowScanner(false);
+  // Inicializar y limpiar el scanner
+  useEffect(() => {
+    if (!showScanner) return;
+
+    const initializeScanner = async () => {
+      try {
+        // Obtener cámaras disponibles
+        const cameras = await Html5Qrcode.getCameras();
+        if (cameras && cameras.length > 0) {
+          setAvailableCameras(cameras);
+          
+          // Buscar cámara trasera por defecto
+          const rearCamera = cameras.find(cam => 
+            cam.label.toLowerCase().includes('back') || 
+            cam.label.toLowerCase().includes('rear') ||
+            cam.label.toLowerCase().includes('environment')
+          );
+          
+          const defaultCameraId = rearCamera?.id || cameras[0].id;
+          setActiveCameraId(defaultCameraId);
+
+          // Inicializar scanner
+          scannerRef.current = new Html5QrcodeScanner("qr-scanner-container", {
+            ...config,
+            videoConstraints: { deviceId: defaultCameraId }
+          }, false);
+
+          scannerRef.current.render(
+            (decodedText) => {
+              setScanResult(decodedText);
+              setShowScanner(false);
+            },
+            (error) => console.error("Error al escanear:", error)
+          );
+        }
+      } catch (err) {
+        console.error("Error al inicializar scanner:", err);
+      }
+    };
+
+    initializeScanner();
+
+    return () => {
+      if (scannerRef.current) {
+        scannerRef.current.clear().catch(error => {
+          console.error("Error al limpiar scanner:", error);
+        });
+      }
+    };
+  }, [showScanner]);
+
+  // Cambiar de cámara
+  const switchCamera = async () => {
+    if (availableCameras.length < 2) return;
+
+    try {
+      const currentIndex = availableCameras.findIndex(cam => cam.id === activeCameraId);
+      const nextIndex = (currentIndex + 1) % availableCameras.length;
+      const nextCamera = availableCameras[nextIndex];
+
+      await scannerRef.current.clear();
+      
+      scannerRef.current = new Html5QrcodeScanner("qr-scanner-container", {
+        ...config,
+        videoConstraints: { deviceId: nextCamera.id }
+      }, false);
+
+      scannerRef.current.render(
+        (decodedText) => {
+          setScanResult(decodedText);
+          setShowScanner(false);
+        },
+        (error) => console.error("Error al escanear:", error)
+      );
+
+      setActiveCameraId(nextCamera.id);
+    } catch (err) {
+      console.error("Error al cambiar cámara:", err);
     }
-  };
-
-  const handleError = (err) => {
-    console.error(err);
   };
 
   const toggleScanner = () => {
     setShowScanner(!showScanner);
     if (!showScanner) {
-      setScanResult(""); // Limpiar resultado al abrir el scanner
+      setScanResult("");
     }
   };
 
@@ -48,21 +121,13 @@ export default function QRS() {
             onChange={(e) => setSchedule(e.target.value)}
           />
         </FormField>
+        
         {showScanner && (
           <div className="scanner-panel">
             <div className="scanner-frame">
-              <QrScanner
-                ref={scannerRef}
-                delay={300}
-                onError={handleError}
-                onScan={handleScan}
-                facingMode={facingMode} // Usar cámara trasera
-                style={{
-                  width: "100%",
-                  maxHeight: "300px",
-                  objectFit: "cover",
-                }}
-              />
+              <div id="qr-scanner-container" style={{ width: "100%", position: "relative" }}>
+                {/* Scanner se renderiza aquí */}
+              </div>
               <div className="scanner-overlay">
                 <div className="scanner-border" />
                 <p className="scanner-hint">
@@ -70,8 +135,16 @@ export default function QRS() {
                 </p>
               </div>
             </div>
+            
+            {availableCameras.length > 1 && (
+              <Button onClick={switchCamera} className="switch-camera-btn">
+                <Icon name="sync" />
+                Cambiar cámara
+              </Button>
+            )}
           </div>
         )}
+        
         <FormField>
           <input
             value={scanResult}
@@ -80,6 +153,7 @@ export default function QRS() {
             className="scan-result-input"
           />
         </FormField>
+        
         <Button
           className={`qr-button ${showScanner ? "active" : ""}`}
           type="button"
@@ -90,13 +164,9 @@ export default function QRS() {
           <Icon name={showScanner ? "close" : "camera"} />
           {showScanner ? "Cerrar escáner" : "Escanear QR"}
         </Button>
+        
         <Button type="" onClick={() => setETA(schedule)}>
           Set ETA
-        </Button>
-        // Y en tu JSX, dentro del scanner-panel:
-        <Button onClick={switchCamera} className="switch-camera-btn">
-          <Icon name="sync" />
-          Cambiar cámara
         </Button>
       </Form>
     </div>
