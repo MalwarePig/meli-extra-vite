@@ -1,1 +1,1 @@
-export const backend_url = /* 'http://localhost:4000' */  'https://meli-extra-vite.onrender.com'
+export const backend_url = 'https://meli-extra-vite.onrender.com'
