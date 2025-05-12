@@ -4,7 +4,7 @@ import Dashboard from "../../components/Admin/Dashboard/Dashboard";
 import Active from "../../components/Admin/Active/Active";
 import Extras from "../../components/Admin/ListExtras/Extras";
 import Pruebas from "../../components/Pruebas/Pruebas/";
-import QRS from "../../components/User/QRS/QRS";
+import QR from "../../components/Admin/QR/QR";
 import './Admin.scss'
 
 const Admin = (params) => {
@@ -39,6 +39,9 @@ const Admin = (params) => {
       break;
     case "Extras":
       return <Extras />;
+      break;
+    case "QR":
+      return <QR />;
       break;
     default:
       return <Dashboard />;

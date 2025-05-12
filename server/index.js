@@ -9,7 +9,7 @@ const app = express();
 // Habilita CORS para todas las rutas (en desarrollo)
 app.use(cors({
   origin: env.FRONTEND_URL, // Reemplaza con el puerto de tu frontend React
-  credentials: true // Si usas cookies o autenticación
+  credentials: false // Si usas cookies o autenticación
 }));
 
 app.use(bodyParser.json()); // Permite leer el cuerpo de las peticiones en formato JSON

@@ -20,5 +20,7 @@ router.post('/setETA', DriverController.setETA);
 /**** ADMIN *****/
 //Obtner users
 router.get('/loadUsersStatus/', AdminController.loadUsersStatus);
+//Regitrar QR
+router.post('/SetQR', AdminController.SetQR);
 
 module.exports = router;

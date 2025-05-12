@@ -60,6 +60,7 @@ const LayoutAdmin = () => {
           <ul> 
             <li><Button onClick={()=>OptionMenu('Home')}>Home</Button></li>
             {/* <li><Button onClick={()=>OptionMenu('Pruebas')}>Pruebas</Button></li> */}
+            <li><Button onClick={()=>OptionMenu('QR')}>QR</Button></li>
             <li><Button onClick={()=>OptionMenu('Activos')}>Activos</Button></li>
             <li><Button onClick={()=>OptionMenu('Extras')}>Extras</Button></li> 
             <li><Button onClick={()=>OptionMenu('Extras')}>Salir</Button></li>

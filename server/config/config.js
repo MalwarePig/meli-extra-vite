@@ -1,6 +1,6 @@
 const env = {};
 /* Servidor */
-env.FRONTEND_URL = 'https://frontend-meli-qfrr.onrender.com' || 'http://localhost:3000';
+env.FRONTEND_URL = 'http://localhost:3000' || 'https://frontend-meli-qfrr.onrender.com';
 env.PORT_SERVER = process.env.PORT || 4000;
 /* Database */
 env.DATABASE_URL = 'https://meli-extra-default-rtdb.firebaseio.com';

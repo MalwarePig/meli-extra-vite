@@ -9,6 +9,7 @@ npm install primereact //Tablas
 npm install react-qr-scanner //Para poder leer codigos qr
 npm install jsonwebtoken //crear jsonwebtoken
 npm install jwt-encode
+npm install react-qr-code //Crea QRS
 
 
 
