@@ -1,9 +1,10 @@
 import { decodeToken } from "../../../utils/functions";
+import { backend_url } from "../../../config/env";
 
 export default async function loadPerfil() { 
   const idDriver = decodeToken()
     try {
-        const response = await fetch("http://localhost:4000/loadUserById/" + idDriver.user, {
+        const response = await fetch(backend_url+"/" + idDriver.user, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
