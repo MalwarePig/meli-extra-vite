@@ -14,6 +14,10 @@ export default function QRS() {
   const [isScannerRunning, setIsScannerRunning] = useState(false); // Estado del escáner
   const scannerRef = useRef(null); // Referencia al objeto Html5Qrcode para acceder fuera del `useEffect`
 
+  useEffect(() => {
+    console.log('first render');
+  }, [scanResult]);
+
   // Configuración del escáner
   const config = {
     fps: 10, // Frames por segundo
