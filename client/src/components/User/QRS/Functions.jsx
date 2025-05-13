@@ -1,4 +1,5 @@
 import { decodeToken } from "../../../utils/functions";
+import { backend_url } from "../../../config/env";
 
 export default async function setETA (params) {
   const {user, idUser} = decodeToken()
@@ -14,7 +15,7 @@ export default async function setETA (params) {
     console.log(Driver) 
     try {
         // Envía los datos al backend (POST a /register)
-        const response = await fetch("http://localhost:4000/setETA", {
+        const response = await fetch(backend_url+"/setETA", {
           method: "POST",
           headers: {
             "Content-Type": "application/json", // Indica que enviamos JSON

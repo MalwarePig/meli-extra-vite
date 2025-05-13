@@ -13,10 +13,29 @@ export default function QRS() {
   const [activeCameraId, setActiveCameraId] = useState(""); // ID de la cámara actualmente activa
   const [isScannerRunning, setIsScannerRunning] = useState(false); // Estado del escáner
   const scannerRef = useRef(null); // Referencia al objeto Html5Qrcode para acceder fuera del `useEffect`
+  const [isDisabled, setIsDisabled] = useState(true); // Estado para habilitar/deshabilitar el botón de escaneo
 
+  // Verificar si el escáner detecto texto y mostrar una alerta con el resultado
   useEffect(() => {
-    console.log('first render');
+    let isMounted = true;
+
+    if (scanResult !== "") {
+      setETA(schedule); // Llamar a la función externa para establecer la hora estimada de llegada
+      alert(scanResult);
+    } 
+    return () => {
+      isMounted = false;
+    };
   }, [scanResult]);
+
+  useEffect(() =>{
+    if (schedule !== "") {
+      setIsDisabled(false); // Habilitar el botón si hay un horario introducido
+    } else {
+      setIsDisabled(true); // Deshabilitar el botón si no hay horario
+    }
+  },[schedule])
+  
 
   // Configuración del escáner
   const config = {
@@ -40,10 +59,11 @@ export default function QRS() {
         setAvailableCameras(cameras); // Guardar cámaras disponibles
 
         // Buscar una cámara trasera si es posible
-        const rearCamera = cameras.find(cam =>
-          cam.label.toLowerCase().includes("back") ||
-          cam.label.toLowerCase().includes("rear") ||
-          cam.label.toLowerCase().includes("environment")
+        const rearCamera = cameras.find(
+          (cam) =>
+            cam.label.toLowerCase().includes("back") ||
+            cam.label.toLowerCase().includes("rear") ||
+            cam.label.toLowerCase().includes("environment")
         );
 
         // Elegir la cámara trasera o la primera disponible
@@ -81,12 +101,18 @@ export default function QRS() {
     // Cleanup: detener el escáner cuando el componente se desmonte o se oculte
     return () => {
       if (scannerRef.current && isScannerRunning) {
-        scannerRef.current.stop().then(() => {
-          scannerRef.current.clear(); // Limpia el contenedor del escáner
-          setIsScannerRunning(false);
-        }).catch(err => {
-          console.warn("El escáner no estaba activo al limpiar:", err.message);
-        });
+        scannerRef.current
+          .stop()
+          .then(() => {
+            scannerRef.current.clear(); // Limpia el contenedor del escáner
+            setIsScannerRunning(false);
+          })
+          .catch((err) => {
+            console.warn(
+              "El escáner no estaba activo al limpiar:",
+              err.message
+            );
+          });
       }
     };
   }, [showScanner]); // Se ejecuta cada vez que `showScanner` cambia
@@ -96,7 +122,9 @@ export default function QRS() {
     if (availableCameras.length < 2 || !scannerRef.current) return;
 
     // Encontrar la siguiente cámara en la lista
-    const currentIndex = availableCameras.findIndex(cam => cam.id === activeCameraId);
+    const currentIndex = availableCameras.findIndex(
+      (cam) => cam.id === activeCameraId
+    );
     const nextIndex = (currentIndex + 1) % availableCameras.length;
     const nextCamera = availableCameras[nextIndex];
 
@@ -158,7 +186,10 @@ export default function QRS() {
         {showScanner && (
           <div className="scanner-panel">
             <div className="scanner-frame">
-              <div id="qr-scanner-container" style={{ width: "100%", position: "relative" }} />
+              <div
+                id="qr-scanner-container"
+                style={{ width: "100%", position: "relative" }}
+              />
               <div className="scanner-overlay">
                 <div className="scanner-border" />
                 <p className="scanner-hint">
@@ -194,6 +225,7 @@ export default function QRS() {
           size="huge"
           color={showScanner ? "red" : "blue"}
           onClick={toggleScanner}
+          disabled={isDisabled} // Deshabilitar el botón si es necesario
         >
           <Icon name={showScanner ? "close" : "camera"} />
           {showScanner ? "Cerrar escáner" : "Escanear QR"}

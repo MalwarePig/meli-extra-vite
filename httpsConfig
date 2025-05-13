@@ -1,0 +1,36 @@
+OPCIÓN 2: Usa mkcert (más fácil y mejor para desarrollo local con HTTPS)
+-Instálalo con Chocolatey (si no lo tienes):
+
+    Set-ExecutionPolicy Bypass -Scope Process -Force; `
+    [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; `
+    iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))
+
+-Luego instala mkcert:
+
+    choco install mkcert
+
+Y úsalo así:
+
+    mkcert -install
+    mkcert localhost
+
+Esto te generará dos archivos:
+
+    localhost.pem  (certificado)
+    localhost-key.pem (llave privada)
+
+Configura vite.config.js:
+
+    import { defineConfig } from 'vite'
+    import react from '@vitejs/plugin-react'
+    import fs from 'fs'
+
+    export default defineConfig({
+    plugins: [react()],
+    server: {
+        https: {
+        key: fs.readFileSync('localhost-key.pem'),
+        cert: fs.readFileSync('localhost.pem'),
+        }
+    }
+    })
