@@ -10,14 +10,14 @@ Controller.loadUsersStatus = async (req, res) => {
     console.log(users)
     if (!users) {
         return res.status(401).json({ error: 'Sin usuarios' });
-    }else{
+    } else {
         res.json(users);
-    } 
+    }
 }
 
 //ruta de registro QR
 Controller.SetQR = async (req, res) => {
-    const {Clave} = req.body
+    const { Clave } = req.body
     console.log(req.body)
 
     try {
@@ -43,6 +43,23 @@ Controller.SetQR = async (req, res) => {
         console.error("Error al actualizar:", error);
         res.status(500).json({ error: error.message });
     }
+}
+
+//buscar usuario por idDriver
+Controller.GetQR = async (req, res) => {
+    /* Consulta la tabla users */
+    const snapshot = await db.ref('users').limitToFirst(1).once('value');
+    const users = snapshot.val();
+
+    if (!users) {
+        return res.status(404).json({ error: 'No se encontraron usuarios' });
+        console.log('sin usuarios')
+    } 
+    const firstUserKey = Object.keys(users)[0];
+    const qrValue = users[firstUserKey].qr;
+    console.log(qrValue)
+
+    res.status(200).json({ qr: qrValue });
 }
 
 

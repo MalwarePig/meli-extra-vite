@@ -5,6 +5,7 @@ npm i react-router-dom
 *************** UI ***************
 npm install @mui/material @mui/styled-engine-sc styled-components 
 npm install primereact //Tablas
+npm install sweetalert2 //Alertas personalizadas
 *************** Utils ***************
 npm install react-qr-scanner //Para poder leer codigos qr
 npm install jsonwebtoken //crear jsonwebtoken

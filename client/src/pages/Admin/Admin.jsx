@@ -24,8 +24,7 @@ const Admin = (params) => {
     updateSharedData({
       schedule: e.target.value,
     });
-  };
-  console.log(sharedData);
+  }; 
 
   switch (sharedData) {
     case "Home":

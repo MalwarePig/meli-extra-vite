@@ -20,7 +20,7 @@ const App = () => {
   ) : (
     <>
       <ThemeToggle />
-     <Navigation />
+     <Navigation onAuthChange={handleLogin}/>
     </>
    
   );

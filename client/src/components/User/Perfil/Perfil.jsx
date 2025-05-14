@@ -15,6 +15,8 @@ import "./Perfil.scss";
 export default function Perfil() {
  const otroInputRef = useRef(null);
  const [loading, setLoading] = useState(true);
+
+ const [loadingColor, setLoadingColor] = useState("white");
  
    // Estado unificado del formulario
    const [formData, setFormData] = useState({
@@ -47,6 +49,9 @@ export default function Perfil() {
           typeVehiculoR: data.typeVehiculoR || "",
           otherType: data.otherType || ""
         })); 
+
+        /* Obtener estatus de ETA */
+        data.OnTime === 'Late' ? setLoadingColor("red") : setLoadingColor("green");
         
       } catch (err) {
         setError(err.message);
@@ -107,7 +112,7 @@ export default function Perfil() {
     <Form className="perfil-form">
       {/* Avatar en la parte superior */}
       <IconGroup size="huge">
-        <Icon loading size="big" name="circle notch" className="Status"/>
+        <Icon loading size="big" name="circle notch" className={loadingColor}/>
         <Icon name="user" />
       </IconGroup>
       {/* Campo: ID de Conductor */}

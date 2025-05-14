@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Form, FormField, Button } from "semantic-ui-react";
 import { backend_url } from "../../../config/env";
+import Swal from "sweetalert2";
 import "./Login.scss";
 
 export default function LoginForm({ onLoginSuccess }) {
@@ -61,7 +62,11 @@ export default function LoginForm({ onLoginSuccess }) {
     const responseData = await response.json(); // Parseamos la respuesta una sola vez
 
     if (!response.ok){
-      alert(responseData.error) 
+      Swal.fire({
+              title: "Error",
+              text: "Error al iniciar sesión",
+              icon: "error",
+            });
     }else{
       // Extrae el token de la respuesta
       const { token } = responseData; 

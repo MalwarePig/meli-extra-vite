@@ -1,5 +1,6 @@
-import React, { useState, useRef } from "react";
-import { Form, FormField, Button, Icon} from "semantic-ui-react";
+import React, { useState, useRef, useEffect } from "react";
+import { Form, FormField, Button, Icon } from "semantic-ui-react";
+import Swal from "sweetalert2";
 import QRCode from "react-qr-code";
 import { toPng } from "html-to-image"; // ✅ Librería que convierte elementos del DOM en imagen PNG
 
@@ -11,7 +12,7 @@ export default function QR() {
   const [formData, setFormData] = useState({
     Clave: "",
   });
-  
+
   //Estado de boton de descarga desactivado
   const [isDisabled, setDisabled] = useState(true);
 
@@ -29,25 +30,35 @@ export default function QR() {
 
   //Actualizar valor de qr
   async function Actualizar() {
-    const response = await fetch(backend_url + "/SetQR",{
+    const response = await fetch(backend_url + "/SetQR", {
       method: "POST",
       headers: {
         "Content-Type": "application/json", // Indica que enviamos JSON
       },
       body: JSON.stringify(formData), // Datos en el cuerpo (más seguro)
-    })
+    });
+
     const responseData = await response.json(); // Parseamos la respuesta una sola vez
 
-    if (!response.ok){
-      alert(responseData.error) 
-    }else{ 
-      alert("QR actualizado");
+    if (!response.ok) {
+      Swal.fire({
+        title: "Error",
+        text: "Error al actualizar QR",
+        icon: "error",
+      });
+    } else {
+      Swal.fire({
+        title: "OK",
+        text: "QR actualizado correctamente",
+        icon: "success",
+      });
       setDisabled(false); // Habilita el botón de descarga
     }
   }
 
   // Función para descargar el código QR como imagen PNG
   const handleDownload = async () => {
+    alert("Descargando QR..."); // Mensaje de alerta al iniciar la descarga
     if (!qrRef.current) return; // Asegura que el contenedor esté presente
 
     try {
@@ -63,9 +74,47 @@ export default function QR() {
       link.href = dataUrl;
       link.click(); // Simula el clic para iniciar la descarga
     } catch (err) {
-      console.error("Error al generar imagen:", err); // Captura errores
+      Swal.fire({
+    title: "Error",
+    text: "'Error al descargar la imagen. Intenta nuevamente.",
+    icon: "error",
+  });
     }
   };
+
+  //Cargar QR al cargar el componente
+  async function LoadQR() {
+    try {
+      const response = await fetch(backend_url + "/GetQR", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json", // Indica que enviamos JSON
+        },
+      });
+
+      if (!response.ok) {
+        Swal.fire({
+          title: "Error",
+          text: "Error al cargar QR" + response.status,
+          icon: "error",
+        });
+      }
+      const data = await response.json();
+      setFormData({
+        ...formData, // Copia el estado anterior
+        ["Clave"]: data.qr, // Actualiza solo el campo modificado
+      });
+    } catch (error) { 
+      Swal.fire({
+        title: "Error",
+        text: "No se pudo cargar el QR. Intenta nuevamente.",
+        icon: "error",
+      });
+    }
+  }
+  useEffect(() => {
+    LoadQR();
+  }, []); // Se ejecuta solo una vez al montar el componente
 
   return (
     <Form className="QR-form">
@@ -79,8 +128,13 @@ export default function QR() {
       </FormField>
 
       {/* Botón que permite descargar el QR como imagen */}
-      <Button type="button" onClick={handleDownload} disabled={isDisabled} className="QR-Button">
-       <i class="cloud download icon"></i>
+      <Button
+        type="button"
+        onClick={handleDownload}
+        disabled={isDisabled}
+        className="QR-Button"
+      >
+        <i class="cloud download icon"></i>
       </Button>
 
       {/* Campo de entrada para escribir la clave que se convertirá en QR */}
@@ -95,7 +149,7 @@ export default function QR() {
 
       {/* Botón que permite descargar el QR como imagen */}
       <Button type="button" onClick={Actualizar}>
-       Aplicar 
+        Aplicar
       </Button>
     </Form>
   );

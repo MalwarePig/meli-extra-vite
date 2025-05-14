@@ -1,7 +1,9 @@
+import { backend_url } from "../../../config/env";
+
 export default async function Functions() {
   var dataTable = [];
   try {
-    const response = await fetch("http://localhost:4000/loadUsersStatus/", {
+    const response = await fetch(backend_url+"/loadUsersStatus/", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",

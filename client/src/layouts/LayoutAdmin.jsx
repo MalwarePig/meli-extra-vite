@@ -31,6 +31,7 @@ const LayoutAdmin = () => {
     });
 
   function OptionMenu(params) {
+     setMenuOpen(!menuOpen);
     if (menuActive == 'Perfil') {
        setmenuActive(params)
     }else{
@@ -58,7 +59,7 @@ const LayoutAdmin = () => {
         <h2>Menú</h2>
         <nav>
           <ul> 
-            <li><Button onClick={()=>OptionMenu('Home')}>Home</Button></li>
+            <li><Button onClick={()=>OptionMenu('Home')}>Inicio</Button></li>
             {/* <li><Button onClick={()=>OptionMenu('Pruebas')}>Pruebas</Button></li> */}
             <li><Button onClick={()=>OptionMenu('QR')}>QR</Button></li>
             <li><Button onClick={()=>OptionMenu('Activos')}>Activos</Button></li>

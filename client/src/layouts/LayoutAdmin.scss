@@ -68,13 +68,14 @@
           box-shadow: 4px 4px 5px var(--bg-shadow) !important;
 
           &:hover {
+            border-bottom: none;
             outline: none !important;
             box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1) !important; // Sombra al pasar el cursor
           }
         }
 
         // Cuarto botón (rojo)
-        &:nth-child(4) {
+        &:nth-child(5) {
           .ui.button {
             outline: none !important;
             color: $danger; 

@@ -19,15 +19,16 @@ export default function QRS() {
   useEffect(() => {
     let isMounted = true;
 
-    if (scanResult !== "") {
-      setETA(schedule); // Llamar a la función externa para establecer la hora estimada de llegada
-      alert(scanResult);
+    if (scanResult !== "") { 
+      setETA(schedule,scanResult); // Llamar a la función externa para establecer la hora estimada de llegada
+     /*  alert(scanResult); */
     } 
     return () => {
       isMounted = false;
     };
   }, [scanResult]);
 
+  // Efecto que se ejecuta cuando el horario cambia y activa el boton de escaneo
   useEffect(() =>{
     if (schedule !== "") {
       setIsDisabled(false); // Habilitar el botón si hay un horario introducido
@@ -232,9 +233,9 @@ export default function QRS() {
         </Button>
 
         {/* Botón para usar el horario introducido */}
-        <Button type="button" onClick={() => setETA(schedule)}>
+        {/* <Button type="button" onClick={() => setETA(schedule)}>
           Set ETA
-        </Button>
+        </Button> */}
       </Form>
     </div>
   );

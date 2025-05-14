@@ -33,19 +33,54 @@ Controller.getUserById = async (req, res) => {
 
 //ruta de registro ETA
 Controller.setETA = async (req, res) => {
-    const { user, idUser, ETA} = req.body
-    console.log(req.body)
+    const { user, idUser, ETA, qr } = req.body
+    var OnTime = ''
 
-    try { 
+    try {
+        // Obtener los datos del usuario desde Firebase
+        const snapshot = await db.ref('users').child(idUser).once('value');
+        const userData = snapshot.val();
+
+        // Comprobar si la contraseña y ETA son iguales
+        if (userData.qr !== qr) {
+            return res.status(400).json({ error: 'QR no coinciden' });
+        }
+
+        // Obtener la hora actual
+        const currentTime = new Date();
+        const currentHours = currentTime.getHours(); // Horas actuales
+        const currentMinutes = currentTime.getMinutes(); // Minutos actuales
+
+        // Extraer las horas y minutos de ETA
+        const [etaHours, etaMinutes] = ETA.split(':').map(Number); // Divide y convierte a números
+
+        console.log(`Hora actual: ${currentHours}:${currentMinutes}`);
+        console.log(`Hora ETA: ${etaHours}:${etaMinutes}`);
+
+        // Comparar las horas y minutos
+        if (
+            currentHours > etaHours ||
+            (currentHours === etaHours && currentMinutes >= etaMinutes)
+        ) {
+            OnTime = 'Late';
+        } else {
+            OnTime = 'Early';
+        }
+
         // Crear objeto de actualización dinámico
         const updateData = {
-            ['ETA']: ETA, 
+            ['ETA']: ETA,
+            ['OnTime']: OnTime
         };
 
         // Actualizar directamente el campo
-        db.ref('users').child(idUser).update(updateData)
+        await db.ref('users').child(idUser).update(updateData);
+        res.json({ success: true, message: 'ETA registrado correctamente', OnTime: OnTime });
+
+        // Actualizar directamente el campo
+        /* db.ref('users').child(idUser).update(updateData)
             .then(() => res.json({ success: true }))
-            .catch(error => res.status(500).json({ error: error.message }));
+            .catch(error => res.status(500).json({ error: error.message })); */
 
     } catch (error) {
         console.error("Error al actualizar:", error);

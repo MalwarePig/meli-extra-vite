@@ -62,7 +62,11 @@ export default function RegisterForm({ onRegiserSuccess }) {
           password: "",
         });
         onRegiserSuccess();
-        alert("Registro exitoso");
+      Swal.fire({
+              title: "OK",
+              text: "Registro exitoso",
+              icon: "success",
+            });
       }
     } catch (error) {
       console.error("Error al registrar usuario: " + error);

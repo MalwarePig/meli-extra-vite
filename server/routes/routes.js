@@ -22,5 +22,7 @@ router.post('/setETA', DriverController.setETA);
 router.get('/loadUsersStatus/', AdminController.loadUsersStatus);
 //Regitrar QR
 router.post('/SetQR', AdminController.SetQR);
+//Cargar qr actual
+router.get('/GetQR/', AdminController.GetQR);
 
 module.exports = router;
