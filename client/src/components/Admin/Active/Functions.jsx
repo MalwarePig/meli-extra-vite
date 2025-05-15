@@ -25,8 +25,8 @@ export default async function Functions() {
         celphone: conductor.phone,
         plates: conductor.plates,
         model: conductor.typeVehiculoR,
-        eta: conductor.ETA,
-        state: conductor.qr,
+        eta: conductor.ETA.length > 2 ? conductor.ETA : '-',
+        state: conductor.OnTime.length > 2 ? conductor.OnTime : '-',
       }); 
     }); 
   

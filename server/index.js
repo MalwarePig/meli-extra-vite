@@ -4,6 +4,7 @@ const env = require('./config/config')
 const cors = require('cors'); //Permite la interaccion de front a back
 const app = express();
  const fs = require('fs');
+ const OS = require("os"); 
  const https = require('https'); // Importa el módulo HTTPS
 
 // Middlewares
@@ -25,9 +26,12 @@ const options = {
 
 /* app.use(options) */
 
+
+
 // Inicia el servidor
 // Inicia el servidor HTTPS
-https.createServer(options, app).listen(env.PORT_SERVER, () => {
-  console.log(`Servidor HTTPS corriendo en https://localhost:${env.PORT_SERVER}`);
+const interfaces = OS.networkInterfaces();
+https.createServer(options, app).listen(env.PORT_SERVER, () => { 
+  console.log(`Servidor HTTPS corriendo en https://${env.localIP}:${env.PORT_SERVER}`); 
 });
 

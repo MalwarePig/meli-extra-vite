@@ -66,3 +66,23 @@
     padding: 20px;
     color: #ec0000;
   }
+
+  .cell-with-icon {
+  display: flex;
+  align-items: center;
+  gap: 8px; /* Espacio entre el ícono y el texto */
+}
+
+.whatsapp-link { 
+  text-decoration: none; /* Elimina el subrayado del enlace */
+  color: #25d366; /* Color verde de WhatsApp */
+  font-weight: bold;
+}
+
+.whatsapp-link:hover {
+  color: #128c7e; /* Cambia el color al pasar el cursor */
+}
+
+.whatsapp-link .icon {
+  font-size: 1em; /* Ajusta el tamaño del ícono */
+}

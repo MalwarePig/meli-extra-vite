@@ -14,15 +14,17 @@ const TableWithFilterAndSort = ({
   defaultSortDirection = "asc",
   pageSize = 10, */
 }) => {
-  const defaultSortField = "name"; //ORdenamiento por default
-  const defaultSortDirection = "asc"; //Orden ascendente
-  const pageSize = 5;
 
-  console.log("data");
-  console.log(data);
+  const defaultSortField="name" ;//ORdenamiento por default
+  const defaultSortDirection = "asc";//Orden ascendente
+  const pageSize= 5;
+
+
+  console.log('data')
+  console.log(data)
 
   //Data para la tabla
-  /*   var data = [
+/*   var data = [
     { id: 1702861, name: "Juan", celphone: 2856685231, plates: "ASD456", model:'Gol 2020',eta: '13:30',state: 'Vencido'},
     { id: 2655654, name: "María", celphone: 3651618152, plates: "FSD654", model:'Beat 2018',eta: '15:30',state: 'Activo'},
     { id: 3546544, name: "Carlos", celphone: 2545654456, plates: "QEW645", model:'Sonic 2015',eta: '16:40',state: 'Activo'},
@@ -67,6 +69,7 @@ const TableWithFilterAndSort = ({
       Cell: ({ email }) => <a href={`mailto:${email}`}>{email}</a>,
     }, */
   ];
+
 
   // Estado para la configuración de ordenamiento:
   // - key: campo por el que se ordena
@@ -223,25 +226,8 @@ const TableWithFilterAndSort = ({
               <tr key={index}>
                 {columns.map((column) => (
                   <td key={column.accessor}>
-                    {/* Personaliza la celda de la columna "Celular" */}
-                    {column.accessor === "celphone" ? (
-                      <div className="cell-with-icon">
-                        <a
-                          href={`https://wa.me/${row[column.accessor]}`}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="whatsapp-link"
-                        >
-                          <i className="whatsapp icon"></i>{" "}
-                          {/* Ícono de WhatsApp */}
-                          {row[column.accessor] || "Sin datos"}{" "}
-                          {/* Número de celular */}
-                        </a>
-                      </div>
-                    ) : (
-                      // Renderizado estándar para otras columnas
-                      row[column.accessor]
-                    )}
+                    {/* Renderizado personalizado de celda si se especifica, sino muestra el valor directo */}
+                    {column.Cell ? column.Cell(row) : row[column.accessor]}
                   </td>
                 ))}
               </tr>
