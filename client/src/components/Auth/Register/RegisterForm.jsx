@@ -73,8 +73,7 @@ export default function RegisterForm({ onRegiserSuccess }) {
     }
   };
 
-  return (
-    <>
+  return ( 
       <Form className="register-form" onSubmit={handleSubmit}>
         <h2>Nuevo driver</h2>
         <hr />
@@ -196,7 +195,6 @@ export default function RegisterForm({ onRegiserSuccess }) {
 
         {/* Botón para enviar el formulario */}
         <Button type="submit">Guardar</Button>
-      </Form>
-    </>
+      </Form> 
   );
 }

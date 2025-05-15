@@ -26,12 +26,12 @@ export default function Auth({onAuthChange}) {
           {showLogin ? (
             <>
               ¿No tienes cuenta?
-              <span onClick={() => setShowLogin(!showLogin)}> Registrate</span>
+              <span className="Auth-Span" onClick={() => setShowLogin(!showLogin)}> Registrate</span>
             </>
           ) : (
             <>
               ¿Ya tienes cuenta?
-              <span onClick={() => setShowLogin(!showLogin)}> Inicia sesión</span>
+              <span className="Auth-Span" onClick={() => setShowLogin(!showLogin)}> Inicia sesión</span>
             </>
           )}
         </p>

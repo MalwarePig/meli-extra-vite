@@ -1,6 +1,9 @@
 @import "../../../scss/colors.scss";
 // Modificaciones específicas para el formulario:
-.register-form {  
+.register-form {
+  margin-top: 20vh !important; // Usa 10% de la altura de la ventana
+  /* padding-top: 100px !important; */
+  background-color: var(--card-bg) !important;
   width: 100%;
   max-width: 400px;
   margin: 2px auto; // Centrado horizontal mejorado
@@ -11,20 +14,20 @@
 
   // Media query específica para móviles
   @media (max-width: 480px) {
-    margin: 20px auto; // Fuerza el centrado Vertical y horizontal
+    margin-top: 10vh !important; // Usa 10% de la altura de la ventana 
     width: calc(100% - 40px); // Asegura espacio a los lados
     box-sizing: border-box;
   }
 
   h2 {
     font-size: 24px !important;
-    text-align: center; 
+    text-align: center;
     color: var(--text-color);
   }
 
   input {
     padding: 15px !important;
-    background-color: var(--primary-bg) !important; 
+    background-color: var(--primary-bg) !important;
     color: var(--text-color);
     border: 1px solid $border-grey;
     width: 100%; // Asegura que no se salga del contenedor
@@ -32,7 +35,7 @@
     border-radius: 5px;
     margin-bottom: 15px;
   }
-  
+
   .radio-group {
     display: flex;
     flex-direction: column;
@@ -43,13 +46,13 @@
     .field {
       display: flex;
       align-items: center;
-      
+
       input[type="radio"] {
         margin: 0 8px 0 0 !important; /* Espacio entre radio y label */
         width: auto; /* Ancho automático */
         color: var(--text-color) !important;
       }
-      
+
       label {
         order: 2; /* Mueve el label después del input */
         margin: 0 !important;
@@ -58,8 +61,8 @@
     }
   }
 
-  .Otro-auto{
-    margin-top: 10px; 
+  .Otro-auto {
+    margin-top: 10px;
   }
 
   .button {
@@ -72,6 +75,6 @@
     &:hover {
       filter: brightness(90%);
       background-color: var(--secondary-bg);
-    } 
+    }
   }
 }

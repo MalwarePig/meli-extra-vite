@@ -1,20 +1,42 @@
-@import '../../scss/colors.scss';
+@import "../../scss/colors.scss";
 
 #root {
-    max-width: 1280px;
-    margin: 0 auto;
-    padding: 20px;
-    width: 100%;
-    box-sizing: border-box;
-    background-color: var(--card-bg); 
-    min-height: 90vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 20px;
+  width: 100%;
+  box-sizing: border-box;
+  background-color: var(--card-bg);
+  min-height: 90vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 15px;
+  background-color: transparent !important;
 }
 
-.container-form{ 
-    overflow: scroll !important;
-    max-width: 800px;
-    width: 800px;
+.login-form {
+  background-color: var(--card-bg) !important;
+}
+
+.container-form {
+  overflow: scroll !important;
+  max-width: 800px;
+  width: 800px;
+
+  // Media query específica para móviles
+  @media (max-width: 480px) {
+    margin-top: 40%; // Fuerza el centrado Vertical y horizontal
+  }
+}
+
+.Auth-Span {
+  color: #00bfff; // Color celeste
+  font-size: 14px;
+  font-weight: 400;
+  margin-top: 10px;
+
+  &:hover {
+    cursor: pointer;
+  }
 }

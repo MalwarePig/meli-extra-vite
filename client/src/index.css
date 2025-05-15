@@ -6,7 +6,7 @@
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
   background-color: #ffffff;
-
+  background-color: transparent; /* Cambia el fondo a transparente */
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -28,6 +28,12 @@ body {
   place-items: center;
   min-width: 320px;
   min-height: 100vh;
+
+  background: url('/src/assets/waves.svg') no-repeat center bottom;
+  background-size: cover;
+  height: 100vh;
+  width: 100%;
+  overflow-x: hidden;
 }
 
 h1 {

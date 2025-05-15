@@ -1,4 +1,5 @@
 .qr-mobile-container {
+  margin-top: 20vh !important; // Usa 10% de la altura de la ventana 
   max-width: 600px;
   margin: 0 auto;
   padding: 20px;
@@ -114,6 +115,7 @@
 
 @media (max-width: 480px) {
   .qr-mobile-container {
+    margin-top: 10vh !important; // Usa 10% de la altura de la ventana 
     padding: 10px;
   }
 

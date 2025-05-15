@@ -83,7 +83,7 @@ export default function LoginForm({ onLoginSuccess }) {
       <h2>id-Driver</h2>
       <FormField>
         <input
-          placeholder="1702065"
+          placeholder="id Driver"
           name="idDriver"
           value={formData.idDriver}
           onChange={handleInputChange}

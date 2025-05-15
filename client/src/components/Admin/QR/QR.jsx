@@ -12,7 +12,6 @@ export default function QR() {
   const [formData, setFormData] = useState({
     Clave: "",
   });
-
   //Estado de boton de descarga desactivado
   const [isDisabled, setDisabled] = useState(true);
 
@@ -58,9 +57,7 @@ export default function QR() {
 
   // Función para descargar el código QR como imagen PNG
   const handleDownload = async () => {
-    alert("Descargando QR..."); // Mensaje de alerta al iniciar la descarga
     if (!qrRef.current) return; // Asegura que el contenedor esté presente
-
     try {
       // Captura el contenido del contenedor y lo convierte a imagen PNG
       const dataUrl = await toPng(qrRef.current, {
@@ -75,10 +72,10 @@ export default function QR() {
       link.click(); // Simula el clic para iniciar la descarga
     } catch (err) {
       Swal.fire({
-    title: "Error",
-    text: "'Error al descargar la imagen. Intenta nuevamente.",
-    icon: "error",
-  });
+        title: "Error",
+        text: "'Error al descargar la imagen. Intenta nuevamente.",
+        icon: "error",
+      });
     }
   };
 
@@ -104,7 +101,8 @@ export default function QR() {
         ...formData, // Copia el estado anterior
         ["Clave"]: data.qr, // Actualiza solo el campo modificado
       });
-    } catch (error) { 
+      setDisabled(false); // Habilita el botón de descarga si hay clave
+    } catch (error) {
       Swal.fire({
         title: "Error",
         text: "No se pudo cargar el QR. Intenta nuevamente.",
@@ -114,7 +112,16 @@ export default function QR() {
   }
   useEffect(() => {
     LoadQR();
+    console.log("Cargando QR..." + formData.Clave);
   }, []); // Se ejecuta solo una vez al montar el componente
+
+  useEffect(() => {
+    if (formData.Clave) {
+      setDisabled(false); // Habilita el botón de descarga si hay clave
+    } else {
+      setDisabled(true); // Desactiva el botón si no hay clave
+    }
+  }, [formData]); // Se ejecuta cada vez que formData cambia
 
   return (
     <Form className="QR-form">
@@ -131,8 +138,7 @@ export default function QR() {
       <Button
         type="button"
         onClick={handleDownload}
-        disabled={isDisabled}
-        className="QR-Button"
+        className={isDisabled ? "QR-Button-disabled" : "QR-Button"}
       >
         <i class="cloud download icon"></i>
       </Button>

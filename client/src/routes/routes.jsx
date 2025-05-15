@@ -9,7 +9,7 @@ import Admin from "../pages/Admin/Admin";
 import "../index.scss";
 
 // Definimos el componente Navigation
-export default function Navigation() {
+export default function Navigation({ onAuthChange }) {
 
     const [typeUser, setTypeUser] = useState('')
  
@@ -22,12 +22,12 @@ export default function Navigation() {
     <Router>
       <Routes>
         {typeUser === "user" ? (
-          <Route element={<LayoutUser />}>
+          <Route element={<LayoutUser onAuthChange={onAuthChange}/>}>
             <Route path="/" element={<Perfil/>} />
             <Route path="*" element={<Navigate to="/" replace />} />
           </Route>
         ) : (
-          <Route element={<LayoutAdmin />}>
+          <Route element={<LayoutAdmin onAuthChange={onAuthChange}/>}>
             <Route path="/admin" element={<Admin />} />
              <Route path="*" element={<Navigate to="/admin" replace />} />{/* Cuando un usuario visita cualquier ruta que no esté definida en tu <Routes>, automáticamente lo redirige a /admin. */}
           </Route>

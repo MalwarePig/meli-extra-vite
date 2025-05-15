@@ -23,6 +23,7 @@
 }
 
 .layout-container-admin {  
+  background-color: transparent !important;
   display: flex;
   width: 85%; 
   min-height: 90vh;//Alto del contenido
@@ -116,7 +117,8 @@
       width: 100%;
       flex: 1;
       /* background-color: #ec0d0d; // Solo para testing */
-      background-color: var(--secondary-bg);
+      /* background-color: var(--secondary-bg); */
+       background-color: transparent !important;
       // Añade estos estilos para que el contenido interno pueda crecer
       display: flex;
       flex-direction: column;

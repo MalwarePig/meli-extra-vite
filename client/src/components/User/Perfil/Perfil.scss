@@ -12,6 +12,7 @@
 
   // Media query específica para móviles
   @media (max-width: 480px) {
+    margin-top: 30vh !important; // Usa 10% de la altura de la ventana 
     margin: 20px auto; // Fuerza el centrado Vertical y horizontal
     width: calc(100% - 40px); // Asegura espacio a los lados
     box-sizing: border-box;

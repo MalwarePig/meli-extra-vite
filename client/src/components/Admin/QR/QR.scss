@@ -1,6 +1,7 @@
 @import "../../../scss/colors.scss";
 // Modificaciones específicas para el formulario:
 .QR-form {
+  background-color: var(--secondary-bg) !important;
   width: 100%;
   max-width: 400px;
   margin: 20px auto; // Centrado horizontal mejorado
@@ -11,6 +12,7 @@
 
   // Media query específica para móviles
   @media (max-width: 480px) {
+    /* margin-top: 10vh !important; // Usa 10% de la altura de la ventana */
     margin: 20px auto; // Fuerza el centrado Vertical y horizontal
     width: calc(100% - 40px); // Asegura espacio a los lados
     box-sizing: border-box;
@@ -25,7 +27,7 @@
 
   .QR-Field {
     margin: auto;
-    max-width: 55%;  
+    max-width: 55%;
     padding-top: 10px;
     padding-bottom: 5px;
     border: 1px solid $border-grey;
@@ -35,6 +37,14 @@
   .QR-Button {
     margin-top: 10px;
     margin-bottom: 10px;
+  }
+
+  .QR-Button-disabled {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    pointer-events: none; /* Evita la interacción */
+    opacity: 0.5; /* Apariencia deshabilitada */
+    cursor: not-allowed;
   }
 
   input {
