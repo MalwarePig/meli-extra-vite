@@ -17,7 +17,7 @@ const getLocalIP = () => {
 const localIP = getLocalIP();
 env.localIP = localIP; // Guarda la IP local en la variable de entorno
 /* Servidor */
-env.FRONTEND_URL = 'https://' +localIP + ':3000'  /* 'https://frontend-meli-qfrr.onrender.com'; */
+env.FRONTEND_URL = 'https://192.168.1.5:3000'  /* 'https://frontend-meli-qfrr.onrender.com'; */
 env.PORT_SERVER = process.env.PORT || 4000;
 /* Database */
 env.DATABASE_URL = 'https://meli-extra-default-rtdb.firebaseio.com';

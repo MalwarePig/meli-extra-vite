@@ -24,5 +24,7 @@ router.get('/loadUsersStatus/', AdminController.loadUsersStatus);
 router.post('/SetQR', AdminController.SetQR);
 //Cargar qr actual
 router.get('/GetQR/', AdminController.GetQR);
+//Cargar todos los usuarios
+router.get('/getAllUser/', AdminController.getAllUser);
 
 module.exports = router;

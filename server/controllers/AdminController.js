@@ -63,4 +63,17 @@ Controller.GetQR = async (req, res) => {
 }
 
 
+//buscar usuario por idDriver
+Controller.getAllUser = async (req, res) => {
+
+    /* Consulta la tabla users */
+    const snapshot = await db.ref('users').once('value');
+    const users = snapshot.val();
+    if (!users) {
+        return res.status(401).json({ error: 'Sin usuarios' });
+    }
+  
+    return res.status(401).json({ users });
+}
+
 module.exports = Controller;
