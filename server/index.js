@@ -29,9 +29,12 @@ const options = {
 
 
 // Inicia el servidor
+app.listen(env.PORT_SERVER, () => { 
+  console.log(`Servidor HTTP corriendo en http://${env.localIP}:${env.PORT_SERVER}`); 
+});
 // Inicia el servidor HTTPS
-const interfaces = OS.networkInterfaces();
+/* const interfaces = OS.networkInterfaces();
 https.createServer(options, app).listen(env.PORT_SERVER, () => { 
   console.log(`Servidor HTTPS corriendo en https://${env.localIP}:${env.PORT_SERVER}`); 
-});
+}); */
 
