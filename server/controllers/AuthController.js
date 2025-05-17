@@ -67,7 +67,8 @@ Controller.register = (req, res) => {
         'otherType': otherType,
         'password': password,
         'status': true, //Estado suspension
-        'qr': false, //Clave al registrar eta
+        'qr': false, //Clave al registrar QR
+        'register': null, //Fecha de registro
         'ETA': '', //horario de la ETA,
         'OnTime': false, //Estado de la ETA
         'level': 'user'

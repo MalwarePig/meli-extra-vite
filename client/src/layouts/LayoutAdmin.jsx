@@ -69,14 +69,14 @@ const LayoutAdmin = ({ onAuthChange }) => {
               <Button onClick={() => OptionMenu("Home")}>Inicio</Button>
             </li>
             {/* <li><Button onClick={()=>OptionMenu('Pruebas')}>Pruebas</Button></li> */}
-            <li>
+           {/*  <li>
               <Button onClick={() => OptionMenu("QR")}>QR</Button>
+            </li> */}
+            <li>
+              <Button onClick={() => OptionMenu("Activos")}>Extras</Button>
             </li>
             <li>
-              <Button onClick={() => OptionMenu("Activos")}>Activos</Button>
-            </li>
-            <li>
-              <Button onClick={() => OptionMenu("Extras")}>Extras</Button>
+              <Button onClick={() => OptionMenu("Control")}>Control</Button>
             </li>
             <li>
               <Button onClick={() => cerrarSesion()}>Salir</Button>

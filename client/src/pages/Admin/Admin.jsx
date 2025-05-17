@@ -2,7 +2,7 @@ import React from "react";
 import { useOutletContext } from "react-router-dom"; 
 import Dashboard from "../../components/Admin/Dashboard/Dashboard";
 import Active from "../../components/Admin/Active/Active";
-import Extras from "../../components/Admin/ListExtras/Extras";
+import Control from "../../components/Admin/Control/Control";
 import Pruebas from "../../components/Pruebas/Pruebas/";
 import QR from "../../components/Admin/QR/QR";
 import './Admin.scss'
@@ -36,8 +36,8 @@ const Admin = (params) => {
     case "Pruebas":
       return <Pruebas />;
       break;
-    case "Extras":
-      return <Extras />;
+    case "Control":
+      return <Control />;
       break;
     case "QR":
       return <QR />;

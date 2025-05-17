@@ -124,9 +124,7 @@ export default function QR() {
   }, [formData]); // Se ejecuta cada vez que formData cambia
 
   return (
-    <Form className="QR-form">
-      <h2>QR</h2>
-
+    <Form className="QR-form">  
       {/* Contenedor del código QR, que será capturado como imagen */}
       <FormField className="QR-Field">
         <div ref={qrRef}>

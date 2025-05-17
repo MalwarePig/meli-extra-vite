@@ -70,7 +70,9 @@ Controller.setETA = async (req, res) => {
         // Crear objeto de actualización dinámico
         const updateData = {
             ['ETA']: ETA,
-            ['OnTime']: OnTime
+            ['OnTime']: OnTime,
+            ['register']: `${currentHours}:${currentMinutes}`, // Cambiar el estado del QR a false          
+
         };
 
         // Actualizar directamente el campo

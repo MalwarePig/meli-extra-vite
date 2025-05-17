@@ -16,7 +16,7 @@ const TableWithFilterAndSort = ({
 }) => {
   const defaultSortField = "name"; //ORdenamiento por default
   const defaultSortDirection = "asc"; //Orden ascendente
-  const pageSize = 5;
+  const pageSize = 20;
 
   console.log("data");
   console.log(data);

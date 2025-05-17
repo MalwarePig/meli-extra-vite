@@ -70,9 +70,9 @@ const Layout = ({ onAuthChange }) => {
             <li>
               <Button onClick={() => OptionMenu("Perfil")}>Perfil</Button>
             </li>
-            <li>
+            {/* <li>
               <Button onClick={() => OptionMenu("QRS")}>QR'S</Button>
-            </li>
+            </li> */}
             <li>
               <Link to="/" onClick={cerrarMenu}>
                 Salir

@@ -1,0 +1,60 @@
+@import "../../../scss/colors.scss";
+.div-list {
+  background-color: var(--secondary-bg) !important;
+  margin-bottom: 5px; // Centrado horizontal mejorado
+  border: 1px solid $border-grey;
+  border-radius: 5px;
+  box-shadow: 4px 6px 8px var(--bg-shadow) !important;
+  max-height: 600px;
+
+  .ui.list {
+    margin: 0;
+    padding: 0;
+    list-style: none; 
+
+    .item {
+      display: flex;
+      flex-direction: column;
+      padding: 15px 10px;
+      border-bottom: 1px solid #ddd; /* Línea divisoria entre elementos */
+      transition: background-color 0.3s ease;
+
+      &:last-child {
+        border-bottom: none; /* Elimina la línea del último elemento */
+      }
+
+      &:hover {
+        background-color: #f9f9f9; /* Fondo al pasar el cursor */
+      }
+
+      .content {
+        display: flex;
+        flex-direction: column;
+
+        .header {
+          font-size: 1.2rem;
+          font-weight: bold;
+          text-decoration: none; /* Elimina el subrayado del enlace */
+          color: #25d366; /* Color verde de WhatsApp */
+          font-weight: bold;
+          margin-bottom: 5px;  
+
+          &:hover {
+            color: #007bff; /* Cambia el color al pasar el cursor */
+          }
+        }
+
+        .description {
+          font-size: 1rem;
+          color: #666; /* Color del texto de descripción */
+          .hora-eta{
+            color: #007bff ;
+          }
+          .hora-registro{
+            color: #ff3c00 ;
+          }
+        }
+      }
+    }
+  }
+}
