@@ -8,7 +8,7 @@ export default function QRS() {
   // Estados para guardar datos relevantes del escáner y del formulario
   const [scanResult, setScanResult] = useState(""); // Resultado del código QR escaneado
   const [showScanner, setShowScanner] = useState(false); // Muestra u oculta el escáner
-  const [schedule, setSchedule] = useState(""); // Horario introducido por el usuario
+  const [schedule, setSchedule] = useState(null); // Horario introducido por el usuario
   const [availableCameras, setAvailableCameras] = useState([]); // Lista de cámaras disponibles
   const [activeCameraId, setActiveCameraId] = useState(""); // ID de la cámara actualmente activa
   const [isScannerRunning, setIsScannerRunning] = useState(false); // Estado del escáner
