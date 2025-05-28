@@ -19,6 +19,7 @@ export default function Auth({onAuthChange}) {
       </div> */}
 
       <div className="container-form">
+       <img src="./Logo.png" alt="Logo" className="Logo"/>
         <div>{showLogin ? <LoginForm onLoginSuccess={() => onAuthChange(true)}/> : <RegisterForm onRegiserSuccess={()=> onRegisterChange(true)}/>}</div>
       
         <div className="change-form">

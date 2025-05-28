@@ -15,6 +15,12 @@
   background-color: transparent !important;
 }
 
+.Logo{
+  padding: 0px;
+  width: 150px;
+  height: 150px; 
+}
+
 .login-form {
   background-color: var(--card-bg) !important;
 }
@@ -26,7 +32,7 @@
 
   // Media query específica para móviles
   @media (max-width: 480px) {
-    margin-top: 40%; // Fuerza el centrado Vertical y horizontal
+    margin-top: 5%; // Fuerza el centrado Vertical y horizontal
   }
 }
 
